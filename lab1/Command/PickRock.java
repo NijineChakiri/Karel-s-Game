@@ -24,8 +24,7 @@ public class PickRock extends Command {
 			System.out.println("You have got a rock!");
 			System.out.println("Now you have " + avatar.getRocksInBag() + " in your bag.");
 		} else {
-			System.out.println("Amazing! You managed to put air in your bag!");
-			
+			System.out.println("Amazing! You managed to put air in your bag!");		
 		}
 		avatar.setLocation(avatar.getlastX(), avatar.getlastY());
 		return true;

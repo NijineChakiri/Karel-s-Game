@@ -34,8 +34,8 @@ public class Move extends Command {
 				   System.out.println("I'm getting strong 'put a number in it' vibes from those parentheses.");
 				}
         } else {
-        	final String [] temp = {"1"};
-        	execute(temp);
+        	final String [] step = {"1"};
+        	execute(step);
         }
         return true;
     }

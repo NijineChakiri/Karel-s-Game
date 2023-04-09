@@ -10,8 +10,7 @@ public abstract class MapObject{
 	}
 	
 	public MapObject(int xCoor, int yCoor) {
-		this.xCoor = xCoor;
-		this.yCoor = yCoor;
+		setLocation(xCoor, yCoor);
 	}
 	
 	public int getxCoor() {

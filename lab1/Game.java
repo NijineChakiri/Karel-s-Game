@@ -30,6 +30,8 @@ public class Game{
 		    	System.out.println("Stage2 is a quite easy one, trust me, just mind the wall...");
 		    	return new Stage2();
 		    case "STAGE3":
+		    	System.out.println("Stage3 is a bit harder, stepping on the trap may cause some bad things to happen.");
+		    	System.out.println("Maybe the trap can be filled with a rock?");
 		    	return new Stage3();	    	
 		    case "NEWMAP":
 		    	System.out.println("Oops, we're still polishing up this feature.");

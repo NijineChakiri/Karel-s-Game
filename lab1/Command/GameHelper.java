@@ -5,6 +5,7 @@ import lab1.Map.*;
 import lab1.MapObject.*;
 
 public class GameHelper extends Command{
+	private ArrayList<MapObject> rockList;
 	
 	public GameHelper(Map map, Avatar avatar) {
 		super(map, avatar);
@@ -33,10 +34,9 @@ public class GameHelper extends Command{
 	
 	public MapObject getNearestRock() {
 		int minDistance;
-		MapObject nearestRock = null;
-		nearestRock = map.getRockList().get(0);
+		MapObject nearestRock = rockList.get(0);
 		minDistance = getManhattanDistance(avatar.getxCoor(), nearestRock.getxCoor(), avatar.getyCoor(), nearestRock.getyCoor());
-		for (MapObject rock : map.getRockList()) {
+		for (MapObject rock : rockList) {
 		    if(minDistance > getManhattanDistance(avatar.getxCoor(), rock.getxCoor(), avatar.getyCoor(), rock.getyCoor())) {
 		    	nearestRock = rock;
 		    	minDistance = getManhattanDistance(avatar.getxCoor(), nearestRock.getxCoor(), avatar.getyCoor(), nearestRock.getyCoor());
@@ -70,7 +70,7 @@ public class GameHelper extends Command{
 		}		
 		if(map.getMap()[x][y] != '●' && !map.getWalkableTiles().contains(map.getMap()[x][y])) {
 			return false;
-		}			
+		}	
 		if(containGrid(openList, x, y)) {
 			return false;
 		}			
@@ -123,12 +123,7 @@ public class GameHelper extends Command{
 		return null;
 	}
 	
-	public ArrayList<MapObject> findPath(){
-		MapObject nearestRock = getNearestRock();	
-		Grid startGrid = new Grid(avatar.getxCoor(), avatar.getyCoor());
-		Grid endGrid = new Grid(nearestRock.getxCoor(), nearestRock.getyCoor());
-		Grid resultGrid = aStarSearch(startGrid, endGrid);
-		ArrayList<MapObject> pathList = new ArrayList<MapObject>();
+	public void addPath(Grid resultGrid, ArrayList<MapObject> pathList) {
 		ArrayList<Grid> pathGrid = new ArrayList<Grid>();
 		while(resultGrid != null) {
 			pathGrid.add(new Grid(resultGrid.x, resultGrid.y));
@@ -139,16 +134,38 @@ public class GameHelper extends Command{
 			pathList.add(path);
 		}
 		if(pathList.size() > 0) {
-			System.out.println("Follow the '*' and you will find the rock.");
+
+			//System.out.println("Follow the '*' and you will find the rock.");
 			pathList.remove(0);
-		} else {
-			System.out.println("No way to get to the rock!");
-		}
+		} 
+			//System.out.println("No way to get to the rock!");
+	}
+	
+	public ArrayList<MapObject> findPath(){
+		ArrayList<MapObject> pathList = new ArrayList<MapObject>();
+		rockList = map.getRockList();
+		Grid avatarGrid = new Grid(avatar.getxCoor(), avatar.getyCoor());
+		
+		Grid endGrid = new Grid(getNearestRock().getxCoor(), getNearestRock().getyCoor());
+		rockList.remove(getNearestRock());
+		
+		Grid result1 = aStarSearch(avatarGrid, endGrid);		
+		addPath(result1, pathList);
+		Grid resultGrid = result1;
+		while(rockList.size() > 0) {
+			Grid end = new Grid(getNearestRock().getxCoor(), getNearestRock().getyCoor());
+			rockList.remove(getNearestRock());
+			resultGrid = aStarSearch(resultGrid, end);
+			addPath(resultGrid, pathList);
+		}		
 		return pathList;
 	}
 	
-	public boolean execute(String[] args) {		
-		map.setPathList(findPath());
+	public void checkPath() {
+	}
+	
+	public boolean execute(String[] args) {	
+		
 		return true;
 	}
 }

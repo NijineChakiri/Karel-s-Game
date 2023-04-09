@@ -3,10 +3,11 @@ import lab1.Map.*;
 import lab1.MapObject.*;
 
 public abstract class Command {
-    public abstract boolean execute(String[] args);
-    Map map;
+	Map map;
     Avatar avatar;
-    
+	
+    public abstract boolean execute(String[] args);
+       
     public Command(Map map, Avatar avatar) {
     	this.map = map;
     	this.avatar = avatar;	

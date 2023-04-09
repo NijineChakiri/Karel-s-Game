@@ -6,7 +6,7 @@ public class Trap extends MapObject{
 	public Trap(int xCoor, int yCoor) {
 		super(xCoor,  yCoor);
 		this.isFilled = false;
-		setCustom('⊙');
+		setTrap();
 	}
 	
 	public boolean isFilled() {

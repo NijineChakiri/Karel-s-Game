@@ -9,9 +9,9 @@ public class NoRockInBag extends Command{
 	
 	public boolean execute(String[] args) {
 		if(avatar.getRocksInBag() > 0)
-			System.out.println("true");
-		else 
 			System.out.println("false");
+		else 
+			System.out.println("true");
 		return true;
 	}
 }

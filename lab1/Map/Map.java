@@ -10,16 +10,14 @@ public abstract class Map{
 	private int length, width;
 
 	char [][] map;
-	int [][] rockLocation = null;
-	int [][] wallLocation = null;
-	ArrayList<MapObject> rockList;
-	ArrayList<MapObject> wallList;
-	ArrayList<MapObject> pathList;
-	ArrayList<MapObject> trapList;
+	private ArrayList<MapObject> rockList;
+	private ArrayList<MapObject> wallList;
+	private ArrayList<MapObject> pathList;
+	private ArrayList<MapObject> trapList;
 	
 	private int initX, initY, initDirection;
 	
-	List<Character> walkableTiles = Arrays.asList('·', '*', '×');
+	private List<Character> walkableTiles = Arrays.asList('·', '*', '×');
 
 	public Map() {
 		rockList = new ArrayList<MapObject>();
@@ -156,6 +154,10 @@ public abstract class Map{
 
 	public void setWallList(ArrayList<MapObject> wallList) {
 		this.wallList = wallList;
+	}
+	
+	public ArrayList<MapObject> getPathList() {
+		return pathList;
 	}
 	
 	public void setPathList(ArrayList<MapObject> pathList) {
